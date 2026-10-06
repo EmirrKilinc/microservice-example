@@ -1,0 +1,79 @@
+# Yerel geliştirme topolojisi. Dışarıya yalnızca Gateway (5000) açılır; servislerin
+# kendi portları host'a yayınlanmaz, birbirlerine compose ağındaki DNS adlarıyla ulaşırlar.
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: src/ApiGateway/Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+      - account-service
+      - transfer-service
+
+  account-service:
+    build:
+      context: .
+      dockerfile: src/Services/AccountService/AccountService.API/Dockerfile
+    environment:
+      # Development: açılışta şema oluşturma + örnek hesaplar (DbInitializer).
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__AccountDb: Host=account-db;Port=5432;Database=accounts;Username=postgres;Password=postgres
+    depends_on:
+      account-db:
+        condition: service_healthy
+
+  transfer-service:
+    build:
+      context: .
+      dockerfile: src/Services/TransferService/Dockerfile
+    environment:
+      # 8081: Account Service'in HTTP/2 (gRPC) portu.
+      Services__AccountGrpc: http://account-service:8081
+      RabbitMq__Host: rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      account-service:
+        condition: service_started
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: src/Services/NotificationService/Dockerfile
+    environment:
+      RabbitMq__Host: rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  # Database-per-service: bu veritabanına yalnızca account-service bağlanır.
+  # Kendi verisi olan yeni bir servis eklenirse kendi veritabanı konteynerini getirir.
+  account-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: accounts
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - account-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d accounts"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    ports:
+      # Yönetim arayüzü (guest/guest): exchange ve kuyrukları incelemek için.
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  account-db-data:

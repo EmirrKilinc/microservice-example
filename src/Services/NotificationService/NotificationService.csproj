@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <!-- Worker SDK: Kestrel yok, HTTP portu yok. Bu servisin tek girişi mesaj kuyruğudur. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Banking.Contracts\Banking.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+</Project>

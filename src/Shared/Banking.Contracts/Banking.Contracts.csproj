@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Paylaşılan TEK şey kontratlardır (event şemaları + .proto). İş mantığı, entity veya
+       DbContext burada YER ALMAZ; aksi halde servisler "dağıtık monolit"e dönüşür. -->
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.Core.Api" />
+    <PackageReference Include="Grpc.Tools" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- GrpcServices="Both": aynı .proto'dan hem server base sınıfı (AccountService kullanır)
+         hem client stub'ı (TransferService kullanır) üretilir. Kontrat tek kaynaktan gelir. -->
+    <Protobuf Include="Protos\account.proto" GrpcServices="Both" />
+  </ItemGroup>
+
+</Project>

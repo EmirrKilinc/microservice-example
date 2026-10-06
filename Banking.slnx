@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApiGateway/ApiGateway.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/AccountService/">
+    <Project Path="src/Services/AccountService/AccountService.Domain/AccountService.Domain.csproj" />
+    <Project Path="src/Services/AccountService/AccountService.Application/AccountService.Application.csproj" />
+    <Project Path="src/Services/AccountService/AccountService.Infrastructure/AccountService.Infrastructure.csproj" />
+    <Project Path="src/Services/AccountService/AccountService.API/AccountService.API.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/TransferService/">
+    <Project Path="src/Services/TransferService/TransferService.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/NotificationService/">
+    <Project Path="src/Services/NotificationService/NotificationService.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Banking.Contracts/Banking.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>

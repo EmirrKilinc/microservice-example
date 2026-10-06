@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Application katmanı: use case'ler ve dışa bağımlılıkların arayüzleri (port'lar).
+       EF Core, gRPC veya ASP.NET Core'u BİLMEZ; yalnızca Domain'e bağımlıdır. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\AccountService.Domain\AccountService.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+</Project>

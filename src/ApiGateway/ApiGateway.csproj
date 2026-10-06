@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Gateway hiçbir servis projesine ve Banking.Contracts'a referans vermez:
+       iş mantığı bilmez, yalnızca yönlendirir. -->
+
+  <ItemGroup>
+    <PackageReference Include="Yarp.ReverseProxy" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- API katmanı = composition root + giriş adaptörleri (REST ve gRPC).
+       Infrastructure'a yalnızca DI kaydı için referans verir; endpoint'ler Application'ı çağırır. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\AccountService.Application\AccountService.Application.csproj" />
+    <ProjectReference Include="..\AccountService.Infrastructure\AccountService.Infrastructure.csproj" />
+    <!-- account.proto burada kopyalanmaz; kontratın tek kaynağı Banking.Contracts'tır. -->
+    <ProjectReference Include="..\..\..\Shared\Banking.Contracts\Banking.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" />
+  </ItemGroup>
+
+</Project>
