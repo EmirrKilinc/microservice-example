@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: transfer-service
+  grpc:
+    client:
+      channels:
+        # 8081: Account Service'in gRPC (HTTP/2) portu.
+        account:
+          address: static://localhost:8081
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+
+server:
+  port: 8082

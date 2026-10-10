@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: accounts-route
+              uri: ${services.account}
+              predicates:
+                - Path=/api/accounts/**
+            - id: transfers-route
+              uri: ${services.transfer}
+              predicates:
+                - Path=/api/transfers/**
+
+# Hedef adresler. Docker'da compose ağındaki DNS adlarıyla ezilir (docker-compose.yml).
+services:
+  account: http://localhost:8080
+  transfer: http://localhost:8082
+
+server:
+  port: 5000

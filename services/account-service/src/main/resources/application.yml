@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: account-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/accounts
+    username: postgres
+    password: postgres
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  grpc:
+    server:
+      # gRPC (HTTP/2): yalnızca iç ağdaki servisler.
+      port: 8081
+
+server:
+  # REST (HTTP/1.1): Gateway üzerinden dış istemciler.
+  port: 8080

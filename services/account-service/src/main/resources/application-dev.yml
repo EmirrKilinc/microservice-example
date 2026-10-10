@@ -1,0 +1,5 @@
+# Yalnızca geliştirme: şemayı Hibernate oluşturur, örnek hesapları DevDataInitializer ekler.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
