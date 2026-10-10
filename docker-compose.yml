@@ -5,9 +5,12 @@ services:
   api-gateway:
     build:
       context: .
-      dockerfile: src/ApiGateway/Dockerfile
+      dockerfile: api-gateway/Dockerfile
     ports:
-      - "5000:8080"
+      - "5000:5000"
+    environment:
+      SERVICES_ACCOUNT: http://account-service:8080
+      SERVICES_TRANSFER: http://transfer-service:8082
     depends_on:
       - account-service
       - transfer-service
@@ -15,11 +18,13 @@ services:
   account-service:
     build:
       context: .
-      dockerfile: src/Services/AccountService/AccountService.API/Dockerfile
+      dockerfile: services/account-service/Dockerfile
     environment:
-      # Development: açılışta şema oluşturma + örnek hesaplar (DbInitializer).
-      ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__AccountDb: Host=account-db;Port=5432;Database=accounts;Username=postgres;Password=postgres
+      # dev profili: açılışta şema oluşturma + örnek hesaplar (DevDataInitializer).
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://account-db:5432/accounts
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       account-db:
         condition: service_healthy
@@ -27,11 +32,11 @@ services:
   transfer-service:
     build:
       context: .
-      dockerfile: src/Services/TransferService/Dockerfile
+      dockerfile: services/transfer-service/Dockerfile
     environment:
-      # 8081: Account Service'in HTTP/2 (gRPC) portu.
-      Services__AccountGrpc: http://account-service:8081
-      RabbitMq__Host: rabbitmq
+      # 8081: Account Service'in gRPC (HTTP/2) portu.
+      SPRING_GRPC_CLIENT_CHANNELS_ACCOUNT_ADDRESS: static://account-service:8081
+      SPRING_RABBITMQ_HOST: rabbitmq
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -41,9 +46,9 @@ services:
   notification-service:
     build:
       context: .
-      dockerfile: src/Services/NotificationService/Dockerfile
+      dockerfile: services/notification-service/Dockerfile
     environment:
-      RabbitMq__Host: rabbitmq
+      SPRING_RABBITMQ_HOST: rabbitmq
     depends_on:
       rabbitmq:
         condition: service_healthy

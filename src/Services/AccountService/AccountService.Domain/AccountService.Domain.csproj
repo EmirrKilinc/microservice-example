@@ -1,6 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <!-- Domain katmanı: hiçbir proje ve hiçbir NuGet paketi referansı YOK.
-       Bağımlılık yönü her zaman içe doğrudur (API -> Infrastructure -> Application -> Domain). -->
-
-</Project>

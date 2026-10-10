@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/api-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/account-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/account-application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/account-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/account-infrastructure/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/account-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/notification-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/transfer-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shared/banking-contracts/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
